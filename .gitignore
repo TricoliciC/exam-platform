@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Flask
+instance/
+.webassets-cache
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Frontend
+node_modules/
+dist/
+.nuxt/
+.cache/
+.next/
+
+# Uploads
+backend/uploads/*
+backend/user_uploads/*
+!backend/uploads/.gitkeep
+!backend/user_uploads/.gitkeep
+
+# Logs
+*.log
+logs/
+
+# Test files (optional - if you want to keep them in git)
+# backend/test_*.py
