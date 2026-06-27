@@ -401,3 +401,33 @@ def manage_user(user_id):
 def get_public_settings():
     settings = SiteSettings.query.first()
     return jsonify({'settings': settings.to_dict() if settings else {}}), 200
+
+# Temporary endpoint to create admin user
+@auth_bp.route('/create-admin', methods=['POST'])
+def create_admin():
+    data = request.get_json()
+    email = data.get('email')
+    username = data.get('username')
+    password = data.get('password')
+
+    if not email or not username or not password:
+        return jsonify({'error': 'Email, username și password sunt obligatorii'}), 400
+
+    # Check if user already exists
+    existing_user = User.query.filter_by(email=email).first()
+    if existing_user:
+        # Update to admin if exists
+        existing_user.is_admin = True
+        existing_user.set_password(password)
+        if username:
+            existing_user.username = username
+        db.session.commit()
+        return jsonify({'message': 'Utilizator actualizat la admin', 'user': existing_user.to_dict()}), 200
+
+    # Create new admin user
+    user = User(email=email, username=username, is_admin=True)
+    user.set_password(password)
+    db.session.add(user)
+    db.session.commit()
+
+    return jsonify({'message': 'Admin user creat cu succes', 'user': user.to_dict()}), 201
