@@ -39,6 +39,11 @@ def home():
 def health():
     return jsonify({'status': 'healthy'})
 
+@app.route('/create-admin')
+def create_admin_page():
+    from flask import send_from_directory
+    return send_from_directory('.', 'create_admin.html')
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=False, host='0.0.0.0', port=port)
